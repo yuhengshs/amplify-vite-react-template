@@ -1,29 +1,16 @@
-import { useEffect, useState } from "react";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
+import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-
-import { Authenticator } from '@aws-amplify/ui-react'
-import { signUp, confirmSignUp, type ConfirmSignUpInput, signIn, type SignInInput, signOut, confirmSignIn} from "aws-amplify/auth";
+import { signUp, confirmSignUp, signIn , signOut, confirmSignIn} from "aws-amplify/auth";
 import '@aws-amplify/ui-react/styles.css'
 
 
-const client = generateClient<Schema>();
-
 function App() {
   const [count, setCount] = useState(0);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadProgress,] = useState(0);
   const [fileUrl,] = useState<string | null>(null);
 
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-    }
-  };
 
   const handleSignUp = async () => {
     const username = 'yuhengsh@amazon.com';
@@ -41,7 +28,8 @@ function App() {
           autoSignIn: true // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
         }
       });
-  
+      console.log(isSignUpComplete);
+      console.log(nextStep);
       console.log(userId);
     } catch (error) {
       console.log('error signing up:', error);
@@ -305,7 +293,6 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      {selectedFile && <p>Selected File: {selectedFile.name}</p>}
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
