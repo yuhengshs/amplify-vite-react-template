@@ -57,15 +57,16 @@ function App() {
     const username = "yuhengsh@amazon.com";
     const password = "Pass1234";
     try {
-      const { isSignedIn, nextStep } = await signIn({ username,
+      const { isSignedIn, nextStep } = await signIn({ 
+        username,
         options: {
           authFlowType: 'CUSTOM_WITHOUT_SRP',
         },
-       });
-       console.log('signing in');
-       
+      });
+      console.log('signing in');
       console.log('is signed in: ',isSignedIn);
       console.log('next step: ',nextStep);
+      
       if (nextStep.signInStep === 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE') {
         try {
           // Use the password as the challenge response
@@ -79,8 +80,6 @@ function App() {
       } else {
         console.log('Unexpected next step:', nextStep);
       }
-      
-      
     } catch (error) {
       console.log('error signing in', error);
     }
